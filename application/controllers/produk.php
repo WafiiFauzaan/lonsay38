@@ -28,7 +28,7 @@ class Produk extends CI_Controller {
 		//mengirim data ke view
 		$output = array(
 						'theme_page' => 'produk_read',
-						'judul' => 'Daftar Produks',
+						'judul' => 'Daftar Produk',
 
 						//data buku dikirim ke view
 						'data_produk' => $data_produk
