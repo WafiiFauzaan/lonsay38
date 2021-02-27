@@ -16,6 +16,12 @@
     </a>
   </li>
 
+  <li class="nav-item active">
+    <a class="nav-link" href="">
+      <i class="fas fa-fw fa-tachometer-alt"></i>
+      <span>Dashboard</span></a>
+  </li>
+
   <li class="nav-item">
     <a class="nav-link" href="<?php echo site_url('tipe_produk/read');?>">
       <i class="fas fa-fw fa-book"></i>
@@ -23,16 +29,18 @@
     </a>
   </li>
 
-  <li class="nav-item active">
-    <a class="nav-link" href="">
-      <i class="fas fa-fw fa-tachometer-alt"></i>
-      <span>Dashboard</span></a>
-  </li>
   <li class="nav-item">
     <a class="nav-link" href="<?php echo site_url('bahan_baku/read');?>">
       <i class="fas fa-fw fa-truck"></i>
       <span>Bahan Baku</span></a>
   </li>
+
+	<li class="nav-item">
+    <a class="nav-link" href="<?php echo site_url('produk_bahan_baku/read');?>">
+      <i class="fas fa-fw fa-truck"></i>
+      <span>Produk Bahan Baku</span></a>
+  </li>
+
   <li class="nav-item">
     <a class="nav-link" href="<?php echo site_url('satuan_bahan_baku/read');?>">
       <i class="fas fa-fw fa-truck"></i>
