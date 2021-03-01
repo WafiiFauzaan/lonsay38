@@ -63,7 +63,8 @@ class Produk_bahan_baku extends CI_Controller {
 	public function insert_submit() {
 		$produk_id = $this->uri->segment(3);
 
-		$this->form_validation->set_rules('bahan_baku_id', 'Bahan Baku', 'required|callback_check_bahan_baku');
+		$this->form_validation->set_rules('bahan_baku_id', 'Bahan Baku', 'required');
+		$this->form_validation->set_rules('berat_bahan_baku', 'Berat Bahan Baku', 'required');
 
 		//jika validasi gagal
 		if ($this->form_validation->run() == FALSE) {
@@ -74,33 +75,41 @@ class Produk_bahan_baku extends CI_Controller {
         	//proses multi query
 			$this->db->trans_begin();
 
-			//insert peminjaman buku
+			//data dari view insert
 			$bahan_baku_id = $this->input->post('bahan_baku_id');
-			$input = array(
-							'produk_id' => $produk_id,
-							'bahan_baku_id' => $bahan_baku_id
-						);
+			$berat_bahan_baku = $this->input->post('berat_bahan_baku');	
 
-			// $this->produk_bahan_baku_model->insert($input);
-
-			// //ambil stok buku
-			// $data_bahan_baku = $this->bahan_baku_model->read_single($bahan_baku_id);
-			// $nama_bahan_baku = $data_bahan_baku['nama'];
+			//ambil harga_bahan_baku dari table bahan baku
+			$data_bahan_baku = $this->bahan_baku_model->read_single($bahan_baku_id);
+			$harga_bahan_baku = $data_bahan_baku['harga'];
 			
-			// //kurangi stok buku
-			// $input_bahan_baku = array(
-			// 				'nama' => ($nama_bahan_baku - 1)
-			// 			);
+			//insert produk bahan baku
+			$bahan_baku_id = $this->input->post('bahan_baku_id');
+			$input_bahan_baku = array(
+							'produk_id' => $produk_id,
+							'bahan_baku_id' => $bahan_baku_id,
+							'berat_bahan_baku' => $berat_bahan_baku,
+							'harga_bahan_baku' => $harga_bahan_baku,
+						);
+			$this->produk_bahan_baku_model->insert($input_bahan_baku);
 
-			// $this->bahan_baku_model->update($input_bahan_baku, $bahan_baku_id);
+			//ambil harga_produksi dari table produk
+			$data_produk = $this->produk_model->read_single($produk_id);
+			$harga_produksi_lama = $data_produk['harga_produksi'];
 
-			// //batalkan semua query (jika ada error)
-			// if ($this->db->trans_status() === FALSE) {
-			//     $this->db->trans_rollback();
+			//update harga produksi table produksi
+			$update_produk = array(
+							'harga_produksi' => $harga_produksi_lama + ($berat_bahan_baku * $harga_bahan_baku),
+						);
+			$this->produk_model->update($update_produk, $produk_id);
 
-			// //execute semua query (jika tidak ada error)
-			// } else {
-			// 	$this->db->trans_commit();
+			//batalkan semua query (jika ada error)
+			if ($this->db->trans_status() === FALSE) {
+			    $this->db->trans_rollback();
+
+			//execute semua query (jika tidak ada error)
+			} else {
+				$this->db->trans_commit();
 
 				//membuat pesan
 				$this->session->set_flashdata('message', 'Data berhasil ditambah');
@@ -137,11 +146,38 @@ class Produk_bahan_baku extends CI_Controller {
 		$produk_id = $this->uri->segment(3);
 		$id = $this->uri->segment(4);
 
+		//proses multi query
+		$this->db->trans_begin();
+
+		//ambil berat & harga bahan baku dari table bahan baku produk
+		$data_produk_bahan_baku = $this->produk_bahan_baku_model->read_single($id);
+		$berat_bahan_baku = $data_produk_bahan_baku['berat_bahan_baku'];
+		$harga_bahan_baku = $data_produk_bahan_baku['harga_bahan_baku'];
+
+		//ambil harga_produksi dari table produk
+		$data_produk = $this->produk_model->read_single($produk_id);
+		$harga_produksi_lama = $data_produk['harga_produksi'];
+
+		//update harga produksi table produksi
+		$update_produk = array(
+						'harga_produksi' => $harga_produksi_lama - ($berat_bahan_baku * $harga_bahan_baku),
+					);
+		$this->produk_model->update($update_produk, $produk_id);
+
 		//memanggil function delete pada peminjaman_buku model
 		$this->produk_bahan_baku_model->delete($id);
 
-		//pesan
-		$this->session->set_flashdata('message', 'Data berhasil dihapus');
+		//batalkan semua query (jika ada error)
+		if ($this->db->trans_status() === FALSE) {
+		    $this->db->trans_rollback();
+
+		//execute semua query (jika tidak ada error)
+		} else {
+			$this->db->trans_commit();
+
+			//pesan
+			$this->session->set_flashdata('message', 'Data berhasil dihapus');
+		}
 
 		//mengembalikan halaman ke function read
 		redirect('produk_bahan_baku/read/'.$produk_id);

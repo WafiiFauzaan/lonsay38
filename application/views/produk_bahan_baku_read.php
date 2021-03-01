@@ -21,6 +21,7 @@
 	<thead class="thead-dark">
 		<tr>
 			<th>No</th>
+			<th>Bahan Baku</th>
 			<th>Berat</th>
 			<th>Action</th>
 		</tr>
@@ -30,9 +31,10 @@
 		<?php foreach($data_produk_bahan_baku as $produk_bahan_baku):?>
 		<tr>
 			<td><?php echo $no++;?></td>
+			<td><?php echo $produk_bahan_baku['nama_bahan_baku'];?></td>
 			<td><?php echo $produk_bahan_baku['berat_bahan_baku'];?></td>
 			<td>
-				<a href="<?php echo site_url('produk_bahan_baku/delete/'.$produk_bahan_baku['produk_id'].'/'.$produk_bahan_bakuk['id']);?>" onClick="return confirm('Anda yakin?')" class="btn btn-danger">
+				<a href="<?php echo site_url('produk_bahan_baku/delete/'.$produk_bahan_baku['produk_id'].'/'.$produk_bahan_baku['id']);?>" onClick="return confirm('Anda yakin?')" class="btn btn-danger">
 				<i class="fas fa-trash"></i> Hapus
 				</a>
 			</td>
