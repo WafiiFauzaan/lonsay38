@@ -23,6 +23,7 @@
 			<th>No</th>
 			<th>Bahan Baku</th>
 			<th>Berat</th>
+			<th>Satuan Bahan Baku</th>
 			<th>Action</th>
 		</tr>
 	</thead>
@@ -33,7 +34,12 @@
 			<td><?php echo $no++;?></td>
 			<td><?php echo $produk_bahan_baku['nama_bahan_baku'];?></td>
 			<td><?php echo $produk_bahan_baku['berat_bahan_baku'];?></td>
+			<td><?php echo $produk_bahan_baku['satuan'];?></td>
 			<td>
+				<a href="<?php echo site_url('produk_bahan_baku/update/'.$produk_bahan_baku['produk_id']);?>" class="btn btn-warning">
+				<i class="fas fa-edit"></i> Ubah
+				</a>
+
 				<a href="<?php echo site_url('produk_bahan_baku/delete/'.$produk_bahan_baku['produk_id'].'/'.$produk_bahan_baku['id']);?>" onClick="return confirm('Anda yakin?')" class="btn btn-danger">
 				<i class="fas fa-trash"></i> Hapus
 				</a>

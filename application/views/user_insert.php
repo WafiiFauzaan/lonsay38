@@ -38,7 +38,7 @@
 		</tr>
 		<tr>
 			<td>No Hanphone</td>
-			<td><input type="text" name="no_hanphone" value="" class="form-control" required=""></td>
+			<td><input type="text" name="no_handphone" value="" class="form-control" required=""></td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>

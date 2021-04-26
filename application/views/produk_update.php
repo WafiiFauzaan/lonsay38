@@ -1,4 +1,4 @@
-<form method="post" action="<?php echo site_url('bahan_baku/update_submit/'.$data_bahan_baku_single['id']);?>" enctype="multipart/form-data">
+<form method="post" action="<?php echo site_url('produk/update_submit/'.$data_produk_single['id']);?>" enctype="multipart/form-data">
 	<table class="table table-striped">
 		<tr>
 			<td>Tipe Produk</td>
@@ -26,7 +26,7 @@
 		</tr>
 		<tr>
 			<td>Harga Produk</td>
-			<td><input type="text" name="harga_produk" value="<?php echo $data_produk_single['harga'];?>" class="form-control"  required=""></td>
+			<td><input type="text" name="harga_produk" value="<?php echo $data_produk_single['harga_produk'];?>" class="form-control"  required=""></td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>

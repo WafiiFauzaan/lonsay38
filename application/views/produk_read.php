@@ -7,8 +7,8 @@
 	<thead class="thead-dark">
 		<tr>
 			<th>No</th>
-			<th>Nama Produk</th>
 			<th>Tipe Produk</th>
+			<th>Nama Produk</th>
 			<th>Harga Produk</th>
 			<th>Action</th>
 		</tr>

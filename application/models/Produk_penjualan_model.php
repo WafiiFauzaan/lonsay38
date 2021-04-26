@@ -1,18 +1,18 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Peminjaman_buku_model extends CI_Model {
+class Produk_penjualan_model extends CI_Model {
 
 	//function read berfungsi mengambil/read data dari table peminjaman_buku di database
-	public function read($peminjaman_id) {
+	public function read($penjualan_id) {
 
 		//sql read
-        $this->db->select('peminjaman_buku.*');
-        $this->db->select('buku.judul AS judul_buku');
-        $this->db->from('peminjaman_buku');
-        $this->db->join('buku', 'peminjaman_buku.buku_id = buku.id');
-		$this->db->where('peminjaman_buku.peminjaman_id', $peminjaman_id);
-        $this->db->order_by('peminjaman_buku.id DESC');
+        $this->db->select('produk_penjualan.*');
+        $this->db->select('produk.nama AS nama_produk');
+        $this->db->from('produk_penjualan');
+        $this->db->join('produk', 'produk_penjualan.produk_id = produk.id');
+		$this->db->where('produk_penjualan.penjualan_id', $penjualan_id);
+        $this->db->order_by('produk_penjualan.id DESC');
     	$query = $this->db->get();
 
 		//$query->result_array = mengirim data ke controller dalam bentuk semua data
@@ -24,7 +24,7 @@ class Peminjaman_buku_model extends CI_Model {
 
 		//sql read
 		$this->db->select('*');
-		$this->db->from('peminjaman_buku');
+		$this->db->from('produk_penjualan');
 
 		//$id = id data yang dikirim dari controller (sebagai filter data yang dipilih)
 		//filter data sesuai id yang dikirim dari controller
@@ -36,16 +36,16 @@ class Peminjaman_buku_model extends CI_Model {
                 return $query->row_array();
 	}
 
-	public function check_buku($peminjaman_id, $buku_id) {
+	public function check_produk_penjualan($produk_id, $penjualan_id) {
 
 		//sql read
 		$this->db->select('*');
-		$this->db->from('peminjaman_buku');
+		$this->db->from('produk_penjualan');
 
 		//$id = id data yang dikirim dari controller (sebagai filter data yang dipilih)
 		//filter data sesuai id yang dikirim dari controller
-		$this->db->where('peminjaman_id', $peminjaman_id);
-		$this->db->where('buku_id', $buku_id);
+		$this->db->where('produk_id', $produk_id);
+		$this->db->where('penjualan_id', $penjualan_id);
 
 		$query = $this->db->get();
 
@@ -56,7 +56,7 @@ class Peminjaman_buku_model extends CI_Model {
 	//function insert berfungsi menyimpan/create data ke table peminjaman_buku di database
 	public function insert($input) {
 		//$input = data yang dikirim dari controller
-		return $this->db->insert('peminjaman_buku', $input);
+		return $this->db->insert('produk_penjualan', $input);
 	}
 
 	//function update berfungsi merubah data ke table peminjaman_buku di database
@@ -66,13 +66,13 @@ class Peminjaman_buku_model extends CI_Model {
 		$this->db->where('id', $id);
 
 		//$input = data yang dikirim dari controller
-		return $this->db->update('peminjaman_buku', $input);
+		return $this->db->update('produk_penjualan', $input);
 	}
 
 	//function delete berfungsi menghapus data dari table peminjaman_buku di database
 	public function delete($id) {
 		//$id = id data yang dikirim dari controller (sebagai filter data yang dihapus)
 		$this->db->where('id', $id);
-		return $this->db->delete('peminjaman_buku');
+		return $this->db->delete('produk_penjualan');
 	}
 }

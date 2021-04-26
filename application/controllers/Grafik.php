@@ -15,14 +15,14 @@ class Grafik extends CI_Controller {
 		$this->rekap_peminjaman();
 	}
 
-	public function rekap_peminjaman() {
+	public function pendapatan_perhari() {
 		//memanggil fungsi model laporan
-		$data_grafik = $this->dashboard_model->rekap_peminjaman_perhari();
+		$data_grafik = $this->dashboard_model->pendapatan_perhari();
 		
 		//mengirim data ke view
 		$output = array(
-						'theme_page' => 'grafik_rekap_peminjaman',
-						'judul' => 'Grafik Rekap Peminjaman',
+						'theme_page' => 'grafik_pendapatan_perhari',
+						'judul' => 'Pendapatan',
 						'data_grafik' => $data_grafik
 					);
 					
@@ -30,14 +30,14 @@ class Grafik extends CI_Controller {
 		$this->load->view('theme/index', $output);
 	}
 
-	public function rekap_jumlah_buku_perkategori() {
+	public function stok_bahan_baku() {
 		//memanggil fungsi model laporan
-		$data_grafik = $this->dashboard_model->jumlah_buku_perkategori();
+		$data_grafik = $this->dashboard_model->stok_bahan_baku();
 		
 		//mengirim data ke view
 		$output = array(
-						'theme_page' => 'grafik_jumlah_buku_perkategori',
-						'judul' => 'Grafik Jumlah Buku Perkategori',
+						'theme_page' => 'grafik_stok_bahan_baku',
+						'judul' => 'Grafik Stok Bahan Baku',
 						'data_grafik' => $data_grafik
 					);
 					

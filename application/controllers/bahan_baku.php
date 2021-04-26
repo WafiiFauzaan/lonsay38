@@ -12,7 +12,7 @@ class Bahan_baku extends CI_Controller {
         }
         
         //memanggil model
-        $this->load->model(array('bahan_baku_model','satuan_bahan_baku_model'));
+        $this->load->model(array('bahan_baku_model'));
     }
 
 	public function index() {
@@ -40,14 +40,10 @@ class Bahan_baku extends CI_Controller {
 
 	public function insert() {
 
-		//data kategori
-		$data_satuan_bahan_baku = $this->satuan_bahan_baku_model->read();
-
 		//mengirim data ke view
 		$output = array(
 						'theme_page' => 'bahan_baku_insert',
 						'judul' => 'Tambah Bahan Baku',
-						'data_satuan_bahan_baku' => $data_satuan_bahan_baku
 					);
 
 		//memanggil file view
@@ -56,9 +52,10 @@ class Bahan_baku extends CI_Controller {
 
 	public function insert_submit() {
 
-		$this->form_validation->set_rules('satuan_bahan_baku_id', 'Satuan Bahan Baku', 'required');
 		$this->form_validation->set_rules('nama', 'Nama Bahan Baku', 'required');
 		$this->form_validation->set_rules('harga', 'Harga', 'required');
+		$this->form_validation->set_rules('stok', 'Stok', 'required');
+		$this->form_validation->set_rules('satuan', 'Satuan', 'required');
 
 		//jika validasi gagal
 		if ($this->form_validation->run() == FALSE) {
@@ -68,16 +65,18 @@ class Bahan_baku extends CI_Controller {
         } else {
 
 			//menangkap data input dari view
-			$satuan_bahan_baku_id = $this->input->post('satuan_bahan_baku_id');
 			$nama = $this->input->post('nama');
 			$harga = $this->input->post('harga');
+			$stok = $this->input->post('stok');
+			$satuan = $this->input->post('satuan');
 
 			//mengirim data ke model
 			$input = array(
 							//format : judul field/kolom table => data input dari view
-							'satuan_bahan_baku_id' => $satuan_bahan_baku_id,
 							'nama' => $nama,
 							'harga' => $harga,
+							'stok' => $stok,
+							'satuan' => $satuan,
 						);
 			
 			//memanggil function insert pada buku model
@@ -96,9 +95,6 @@ class Bahan_baku extends CI_Controller {
 		//menangkap id data yg dipilih dari view (parameter get)
 		$id = $this->uri->segment(3);
 
-		//data kategori
-		$data_satuan_bahan_baku = $this->satuan_bahan_baku_model->read();
-
 		//function read berfungsi mengambil 1 data dari table buku sesuai id yg dipilih
 		$data_bahan_baku_single = $this->bahan_baku_model->read_single($id);
 		
@@ -108,8 +104,7 @@ class Bahan_baku extends CI_Controller {
 						'judul' => 'Ubah Bahan Baku',
 
 						//mengirim data buku yang dipilih ke view
-						'data_bahan_baku_single' => $data_bahan_baku_single,
-						'data_satuan_bahan_baku' => $data_satuan_bahan_baku
+						'data_bahan_baku_single' => $data_bahan_baku_single
 					);
 
 		//memanggil file view
@@ -120,9 +115,9 @@ class Bahan_baku extends CI_Controller {
 		//menangkap id data yg dipilih dari view
 		$id = $this->uri->segment(3);
 
-		$this->form_validation->set_rules('satuan_bahan_baku_id', 'Satuan Bahan Baku', 'required');
 		$this->form_validation->set_rules('nama', 'Nama Bahan Baku', 'required');
-		$this->form_validation->set_rules('harga', 'Harga', 'required');
+		$this->form_validation->set_rules('harga', 'Harga Bahan Baku', 'required');
+		$this->form_validation->set_rules('stok', 'Stok Bahan Baku', 'required');
 
 		//jika validasi gagal
 		if ($this->form_validation->run() == FALSE) {
@@ -132,16 +127,16 @@ class Bahan_baku extends CI_Controller {
         } else {
 
 	        	//menangkap data input dari view
-				$satuan_bahan_baku_id = $this->input->post('satuan_bahan_baku_id');
 				$nama = $this->input->post('nama');
 				$harga = $this->input->post('harga');
+				$stok = $this->input->post('stok');
 
 				//mengirim data ke model
 				$input = array(
 								//format : judul field/kolom table => data input dari view
-								'satuan_bahan_baku_id' => $satuan_bahan_baku_id,
 								'nama' => $nama,
 								'harga' => $harga,
+								'stok' => $stok,
 							);
 
 			

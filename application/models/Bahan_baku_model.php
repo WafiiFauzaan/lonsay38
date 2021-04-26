@@ -8,9 +8,9 @@ class bahan_baku_model extends CI_Model {
 
 		//sql read
 		$this->db->select('bahan_baku.*');
-		$this->db->select('satuan_bahan_baku.nama AS nama_satuan');
+		$this->db->select('bahan_baku.satuan AS nama_satuan');
 		$this->db->from('bahan_baku');
-		$this->db->join('satuan_bahan_baku', 'bahan_baku.satuan_bahan_baku_id = satuan_bahan_baku.id');
+		//$this->db->join('satuan_bahan_baku', 'bahan_baku.satuan_bahan_baku_id = satuan_bahan_baku.id');
 		$this->db->order_by('id', 'DESC');
 		$query = $this->db->get();
 
